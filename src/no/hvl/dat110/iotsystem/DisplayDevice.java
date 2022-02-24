@@ -14,21 +14,32 @@ public class DisplayDevice {
 		System.out.println("Display starting ...");
 		
 		// TODO - START
-				
 		// create a client object and use it to
+				//Usikker på verdiane her.
+		Client client = new Client("display", Common.BROKERHOST, Common.BROKERPORT);
 		
 		// - connect to the broker - use "display" as the username
+		client.connect();
+
 		// - create the temperature topic on the broker
+		client.createTopic(Common.TEMPTOPIC);
 		// - subscribe to the topic
-		// - receive messages on the topic
+		client.subscribe(Common.TEMPTOPIC);
+		for (int i=0; i<COUNT; i++) {
+			// - receive messages on the topic
+			client.receive();
+			System.out.println("Display: motar melding");
+		}
 		// - unsubscribe from the topic
+		client.unsubscribe(Common.TEMPTOPIC);
 		// - disconnect from the broker
+		client.disconnect();
 		
 		// TODO - END
 		
 		System.out.println("Display stopping ... ");
 		
-		throw new UnsupportedOperationException(TODO.method());
+		//throw new UnsupportedOperationException(TODO.method());
 		
 	}
 }
